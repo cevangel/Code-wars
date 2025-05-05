@@ -9,18 +9,28 @@ than 1(index 0), but less than 2(index 1).
 
 
 
-function whereIBelong(arr, num) {
-   // Code goes here
-   let smallerThanNumCount = 0; //initialize count
-   for (let ele of arr){ //for of loop to see many arr elements are less than num (will be the index where it belongs)
-      if (ele < num){ 
-         smallerThanNumCount++
-      }
-   }
-   return smallerThanNumCount;
+// function whereIBelong(arr, num) {
+//    // Code goes here
+//    let smallerThanNumCount = 0; //initialize count
+//    for (let ele of arr){ //for of loop to see many arr elements are less than num (will be the index where it belongs)
+//       if (ele < num){ 
+//          smallerThanNumCount++
+//       }
+//    }
+//    return smallerThanNumCount;
 
-}
+// }
 
+const longestWord = (sentence) => {
+  let sentenceArray = sentence.split(" ");
+  let longest = '';
+  for (let word of sentenceArray){
+    if (word.length >= longest.length){
+      longest = word
+    }
+  }
+  return longest;
+};
 
 
 module.exports = whereIBelong
