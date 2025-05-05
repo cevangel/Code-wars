@@ -1,3 +1,3 @@
-function twiceAsOld(dadYearsOld, sonYearsOld) {
-  return Math.abs(dadYearsOld - 2 * sonYearsOld);
+function move (position, roll) {
+  return position+2*roll;
 }

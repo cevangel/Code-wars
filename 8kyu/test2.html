@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Trail Mix Macro Calculator</title>
+</head>
+<body>
+  <h2>Trail Mix Macro Goal Solver</h2>
+  <p>Enter nutrition per 100g of each item:</p>
+
+  <div>
+    <strong>Food 1:</strong><br>
+    Carbs: <input id="c1" type="number">  
+    Protein: <input id="p1" type="number">  
+    Fat: <input id="f1" type="number"><br><br>
+
+    <strong>Food 2:</strong><br>
+    Carbs: <input id="c2" type="number">  
+    Protein: <input id="p2" type="number">  
+    Fat: <input id="f2" type="number"><br><br>
+
+    <strong>Food 3:</strong><br>
+    Carbs: <input id="c3" type="number">  
+    Protein: <input id="p3" type="number">  
+    Fat: <input id="f3" type="number"><br><br>
+  </div>
+
+  <h3>Macro Goals (grams):</h3>
+  Carbs: <input id="tc" type="number">  
+  Protein: <input id="tp" type="number">  
+  Fat: <input id="tf" type="number"><br><br>
+
+  <button onclick="calculateMix()">Calculate</button>
+
+  <h3>Results (in grams):</h3>
+  <div id="result"></div>
+
+  <script>
+    function calculateMix() {
+      // Inputs (divided by 100 to get per-gram values)
+      let c1 = parseFloat(document.getElementById("c1").value) / 100;
+      let p1 = parseFloat(document.getElementById("p1").value) / 100;
+      let f1 = parseFloat(document.getElementById("f1").value) / 100;
+
+      let c2 = parseFloat(document.getElementById("c2").value) / 100;
+      let p2 = parseFloat(document.getElementById("p2").value) / 100;
+      let f2 = parseFloat(document.getElementById("f2").value) / 100;
+
+      let c3 = parseFloat(document.getElementById("c3").value) / 100;
+      let p3 = parseFloat(document.getElementById("p3").value) / 100;
+      let f3 = parseFloat(document.getElementById("f3").value) / 100;
+
+      let tc = parseFloat(document.getElementById("tc").value);
+      let tp = parseFloat(document.getElementById("tp").value);
+      let tf = parseFloat(document.getElementById("tf").value);
+
+      // Determinant helper for 3x3 matrix (Cramer's Rule)
+      function det(a, b, c, d, e, f, g, h, i) {
+        return a*(e*i - f*h) - b*(d*i - f*g) + c*(d*h - e*g);
+      }
+
+      let D = det(c1, c2, c3, p1, p2, p3, f1, f2, f3);
+
+      if (D === 0) {
+        document.getElementById("result").innerText = "Cannot solve: Matrix is singular.";
+        return;
+      }
+
+      // Determinants for each variable (using macro goals)
+      let Dx = det(tc, c2, c3, tp, p2, p3, tf, f2, f3);
+      let Dy = det(c1, tc, c3, p1, tp, p3, f1, tf, f3);
+      let Dz = det(c1, c2, tc, p1, p2, tp, f1, f2, tf);
+
+      let x = Dx / D;
+      let y = Dy / D;
+      let z = Dz / D;
+
+      // Round results
+      x = Math.round(x * 1000) / 100000;
+      y = Math.round(y * 1000) / 100000;
+      z = Math.round(z * 1000) / 100000;
+
+      document.getElementById("result").innerHTML =
+        `Food 1: ${x}g<br>` + 
+        `Food 2: ${y}g<br>` +
+        `Food 3: ${z}g`;
+    }
+  </script>
+</body>
+</html>
