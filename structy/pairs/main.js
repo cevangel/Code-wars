@@ -8,4 +8,5 @@ const pairs = (elements) => {
     }
   }
   return result;
+  //time/space complexity: O(n^2)
 };
