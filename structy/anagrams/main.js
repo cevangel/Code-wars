@@ -1,16 +1,29 @@
-// https://structy.net/problems/fizz-buzz
-const fizzBuzz = (n) => {
-  let result = [];  //create an empty result array
-  for (let i=1; i<= n; i++){//create a for loop
-    if (i % 15 === 0){ //write conditionals
-      result.push("fizzbuzz")
-    } else if (i % 5 === 0){
-      result.push("buzz")
-    } else if (i % 3 === 0){
-      result.push("fizz")
-    } else {
-      result.push(i)
+// https://structy.net/problems/anagrams
+
+const anagrams = (s1, s2) => { //O(2n+m) time complexity 
+  let charMap = {};//create a charMap of s1
+  for (let char of s1){ //O(n)
+    if (!charMap.hasOwnProperty(char)){
+    charMap[char] = 0;
+    } charMap[char] += 1;
+  }
+  for (let char of s2){   //O(m)   //decrement s2 values from s1 via for of loop
+    if (!charMap[char]){    //if s2 char not in s1, then return false
+      return false
+  } else {
+      charMap[char]-=1 //you can't substract a string s2[char]
+  }
+  } //unexpected end of input error before
+  for (let char in charMap){ //O(n) //for IN loop for objects
+    if (charMap[char] != 0){ //check if 0
+      return false
     }
   }
-  return result;
+  return true 
+};
+
+
+anagrams("fluster","fluster")
+module.exports = {
+  anagrams,
 };
