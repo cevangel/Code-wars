@@ -1,6 +1,6 @@
 // https://structy.net/problems/anagrams
 
-const anagrams = (s1, s2) => { //O(2n+m) time complexity 
+const anagrams = (s1, s2) => { //O(2n+m) time complexity ; space: O(m)
   let charMap = {};//create a charMap of s1
   for (let char of s1){ //O(n)
     if (!charMap.hasOwnProperty(char)){
