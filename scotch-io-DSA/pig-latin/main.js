@@ -32,3 +32,4 @@ return str + "ay"
   //if not, keep going until find first vowel, then
   //  //move initial consonant cluster to end of word, and add "-ay" to end 
 
+
